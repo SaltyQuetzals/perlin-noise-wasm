@@ -11,22 +11,10 @@ edition = "2018"
 [lib]
 crate-type = ["cdylib"]
 
-[profile.dev]
-# This makes the compiled code faster, but it makes compiling slower,
-# so it's only enabled in release mode.
-lto = true 
-codegen-units = 1
-opt-level = 3   
-panic = 'abort'
-
-
 [profile.release]
-# This makes the compiled code faster, but it makes compiling slower,
-# so it's only enabled in release mode.
-lto = true 
-codegen-units = 1
-opt-level = 3   
-panic = 'abort'
+lto=true
+panic='abort'
+codegen-units=1
 
 [features]
 # If you uncomment this line, it will enable `wee_alloc`:
@@ -35,12 +23,13 @@ panic = 'abort'
 [dependencies]
 # The `wasm-bindgen` crate provides the bare minimum functionality needed
 # to interact with JavaScript.
-wasm-bindgen = "0.2.45"
+wasm-bindgen = "*"
+wee_alloc = {version="*",optional=true}
 
 # The `web-sys` crate allows you to interact with the various browser APIs,
 # like the DOM.
 [dependencies.web-sys]
-version = "0.3.22"
+version = "*"
 features = [
   'console',
   'ImageData',
@@ -52,4 +41,4 @@ features = [
 # all the `std::fmt` and `std::panicking` infrastructure, so it's only enabled
 # in debug mode.
 [target."cfg(debug_assertions)".dependencies]
-console_error_panic_hook = "0.1.5"
+console_error_panic_hook = "*"

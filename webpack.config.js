@@ -7,7 +7,16 @@ const dist = path.resolve(__dirname, "dist");
 module.exports = {
   mode: "production",
   entry: {
-    index: "./js/index.js"
+    index: "./ts/index.ts"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
   },
   output: {
     path: dist,

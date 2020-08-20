@@ -3,14 +3,17 @@ import("../pkg/index.js").then((wasm) => {
         const WIDTH = window.innerWidth;
         const HEIGHT = window.innerHeight;
 
-        let z = Math.floor(Math.random() * 256);
-        /** @type {HTMLCanvasElement} */
-        const canvas = document.getElementById("perlin-noise-canvas");
+        let z = Math.floor(Math.random() * 10000);
+        const canvas = document.getElementById("perlin-noise-canvas") as HTMLCanvasElement;
         canvas.width = WIDTH;
         canvas.height = HEIGHT;
         canvas.style.width = `${WIDTH}px`;
         canvas.style.height = `${HEIGHT}px`;
-        const ctx = canvas.getContext('2d');
+        const contextType = '2d';
+        const ctx = canvas.getContext(contextType);
+        if (!ctx) {
+            throw new Error(`"${contextType}" is not a valid rendering context.`)
+        }
         wasm.draw(ctx, canvas.width, canvas.height, z);
     };
 
